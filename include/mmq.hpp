@@ -3,17 +3,11 @@
 #include <atomic>
 #include <memory>
 #include <queue>
-#include <mutex>
 #include <chrono>
 
-#define PAYLOAD_SIZE 20000
+#include "message.hpp"
 
 using namespace std;
-
-struct Message {
-    int m_payload[PAYLOAD_SIZE];
-    string m_targetFile;
-};
 
 class MultithreadMessageQueue {
 

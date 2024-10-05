@@ -177,6 +177,30 @@ src/mmq.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/src/mmq.cpp.s
 .PHONY : src/mmq.cpp.s
 
+src/mmq2.o: src/mmq2.cpp.o
+.PHONY : src/mmq2.o
+
+# target to build an object file
+src/mmq2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/src/mmq2.cpp.o
+.PHONY : src/mmq2.cpp.o
+
+src/mmq2.i: src/mmq2.cpp.i
+.PHONY : src/mmq2.i
+
+# target to preprocess a source file
+src/mmq2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/src/mmq2.cpp.i
+.PHONY : src/mmq2.cpp.i
+
+src/mmq2.s: src/mmq2.cpp.s
+.PHONY : src/mmq2.s
+
+# target to generate assembly for a file
+src/mmq2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/src/mmq2.cpp.s
+.PHONY : src/mmq2.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +216,9 @@ help:
 	@echo "... src/mmq.o"
 	@echo "... src/mmq.i"
 	@echo "... src/mmq.s"
+	@echo "... src/mmq2.o"
+	@echo "... src/mmq2.i"
+	@echo "... src/mmq2.s"
 .PHONY : help
 
 

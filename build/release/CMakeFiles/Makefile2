@@ -81,12 +81,12 @@ clean: CMakeFiles/MMQ.dir/clean
 CMakeFiles/MMQ.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/matheussilva/dev/multithread-message-queue/build/release/CMakeFiles --progress-num=1,2,3 "Built target MMQ"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/matheussilva/dev/multithread-message-queue/build/release/CMakeFiles --progress-num=1,2,3,4 "Built target MMQ"
 .PHONY : CMakeFiles/MMQ.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MMQ.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matheussilva/dev/multithread-message-queue/build/release/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matheussilva/dev/multithread-message-queue/build/release/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/MMQ.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/matheussilva/dev/multithread-message-queue/build/release/CMakeFiles 0
 .PHONY : CMakeFiles/MMQ.dir/rule

@@ -2,6 +2,7 @@
 //
 
 #include "mmq.hpp"
+#include "mmq2.hpp"
 
 #include <iostream>
 #include <chrono>
@@ -36,7 +37,9 @@ int main()
     }
 
     json j;
-    j["results"] = json::array();
+
+    // Testing MMQ
+    j["mmq_results"] = json::array();
     for (int numThreads = 1; numThreads <= 16; ++numThreads) {
         chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
@@ -55,7 +58,30 @@ int main()
         jj["num_threads"] = numThreads;
         jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
 
-        j["results"].push_back(jj);
+        j["mmq_results"].push_back(jj);
+    }
+
+    // Testing MMQ 2 with lockless queue
+    j["mmq_2_results"] = json::array();
+    for (int numThreads = 1; numThreads <= 16; ++numThreads) {
+        chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+        MultithreadMessageQueue2 mmq;
+        mmq.Start(numThreads);
+        for (int i = 0; i < messages.size(); ++i) {
+            mmq.AddMessageAsync(messages[i]);
+        }
+        while (!mmq.IsDoneProcessing()) {}
+        mmq.Shutdown();
+
+        chrono::steady_clock::time_point end = chrono::steady_clock::now();
+        chrono::duration<float> duration = end - begin;
+
+        json jj;
+        jj["num_threads"] = numThreads;
+        jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
+
+        j["mmq_2_results"].push_back(jj);
     }
 
     ofstream o("../../data/results.json", ios::trunc);

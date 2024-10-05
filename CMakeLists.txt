@@ -19,7 +19,7 @@ set(CMAKE_OSX_ARCHITECTURES "x86_64")
 
 project(MMQ)
 
-set(SOURCES src/main.cpp src/mmq.cpp include/mmq.hpp)
+set(SOURCES src/main.cpp src/mmq.cpp include/mmq.hpp src/mmq2.cpp include/mmq2.hpp include/lock_free_queue.hpp)
 add_executable(MMQ ${SOURCES})
 
 target_include_directories(MMQ PUBLIC
