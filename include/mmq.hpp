@@ -24,7 +24,7 @@ class MultithreadMessageQueue {
 
 public:
 
-    void Start(int numThreads = 64);
+    void Start(int numThreads = 8);
     void AddMessage(shared_ptr<Message> message);
     bool IsDoneProcessing();
     void Shutdown();
