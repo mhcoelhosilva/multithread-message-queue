@@ -1,0 +1,3 @@
+/Users/matheussilva/dev/cpp-sandbox/build/CMakeFiles/Sandbox.dir
+/Users/matheussilva/dev/cpp-sandbox/build/CMakeFiles/edit_cache.dir
+/Users/matheussilva/dev/cpp-sandbox/build/CMakeFiles/rebuild_cache.dir
