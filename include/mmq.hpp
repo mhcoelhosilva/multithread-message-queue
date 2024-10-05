@@ -15,8 +15,6 @@ struct Message {
     string m_targetFile;
 };
 
-// Similar to log_queue and requests but now we wanna use multiple threads simultaneously
-// to process longer messages
 class MultithreadMessageQueue {
 
     vector<thread> m_threads;
