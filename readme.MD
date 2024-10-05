@@ -10,6 +10,8 @@ The plot below was produced on an 8-core CPU in a Release build, and shows maxim
 
 ![Plot](./plot.png)
 
+The single thread case is also provided in blue as a benchmark or sanity check. Note that MMQ 1 and MMQ 2 both perform similarly to the single-threaded case when number of threads is equal to 1.
+
 ## Usage
 
 To build using CMake and run:

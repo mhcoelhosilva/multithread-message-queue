@@ -38,6 +38,31 @@ int main()
 
     json j;
 
+    // Benchmark case (single thread!)
+    j["single_thread_results"] = json::array();
+    {
+        chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+        
+        for (int i = 0; i < messages.size(); ++i) {
+            ofstream file(messages[i]->m_targetFile, ios::app);
+            for (int j = 0; j < PAYLOAD_SIZE; ++j) {
+                file << to_string(messages[i]->m_payload[j]) << ", ";
+            }
+            file << endl;
+            file.close();
+        }
+
+        chrono::steady_clock::time_point end = chrono::steady_clock::now();
+        chrono::duration<float> duration = end - begin;
+
+        for (int numThreads = 1; numThreads <= 16; ++numThreads) {
+            json jj;
+            jj["num_threads"] = numThreads;
+            jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
+            j["single_thread_results"].push_back(jj);
+        }
+    }
+
     // Testing MMQ
     j["mmq_results"] = json::array();
     for (int numThreads = 1; numThreads <= 16; ++numThreads) {
