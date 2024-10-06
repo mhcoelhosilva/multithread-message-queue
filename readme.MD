@@ -12,7 +12,7 @@ The plot below was produced on an 8-core CPU in a Release build, and shows maxim
 
 The single thread case is provided in blue as a benchmark or sanity check. Note that MMQ 1 and MMQ 2 both perform similarly to the single-threaded case when number of threads is equal to 1.
 
-A naive multi-threaded implementation is also provided, and presented in cyan. In this case, a new worker thread is created dynamically with each `AddMessageAsync` call. Therefore there could potentially be as many as N threads active at a time, where N is the number of total messages to be processed (500 in this example). The overhead of creating and removing threads dynamically plus context switching between a very large number of software threads causes this approach to be much less efficient still than the single-threaded case. This experiment shows that naively deploying worker threads on demand might not always be the best solution for high-performance solutions.
+A naive multi-threaded implementation is also provided, and presented in cyan. In this case, a new worker thread is created dynamically with each `AddMessageAsync` call. Therefore there could potentially be as many as N threads active at a time, where N is the number of total messages to be processed (500 in this example). The overhead of creating and removing threads dynamically plus context switching between a very large number of software threads causes this approach to be much less efficient than a well-orchestrated message queue.
 
 ## Usage
 
