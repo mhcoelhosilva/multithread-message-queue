@@ -201,6 +201,30 @@ src/mmq2.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/src/mmq2.cpp.s
 .PHONY : src/mmq2.cpp.s
 
+src/naive.o: src/naive.cpp.o
+.PHONY : src/naive.o
+
+# target to build an object file
+src/naive.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/src/naive.cpp.o
+.PHONY : src/naive.cpp.o
+
+src/naive.i: src/naive.cpp.i
+.PHONY : src/naive.i
+
+# target to preprocess a source file
+src/naive.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/src/naive.cpp.i
+.PHONY : src/naive.cpp.i
+
+src/naive.s: src/naive.cpp.s
+.PHONY : src/naive.s
+
+# target to generate assembly for a file
+src/naive.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MMQ.dir/build.make CMakeFiles/MMQ.dir/src/naive.cpp.s
+.PHONY : src/naive.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,6 +243,9 @@ help:
 	@echo "... src/mmq2.o"
 	@echo "... src/mmq2.i"
 	@echo "... src/mmq2.s"
+	@echo "... src/naive.o"
+	@echo "... src/naive.i"
+	@echo "... src/naive.s"
 .PHONY : help
 
 

@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/matheussilva/dev/multithread-message-queue/src/main.cpp" "CMakeFiles/MMQ.dir/src/main.cpp.o" "gcc" "CMakeFiles/MMQ.dir/src/main.cpp.o.d"
   "/Users/matheussilva/dev/multithread-message-queue/src/mmq.cpp" "CMakeFiles/MMQ.dir/src/mmq.cpp.o" "gcc" "CMakeFiles/MMQ.dir/src/mmq.cpp.o.d"
   "/Users/matheussilva/dev/multithread-message-queue/src/mmq2.cpp" "CMakeFiles/MMQ.dir/src/mmq2.cpp.o" "gcc" "CMakeFiles/MMQ.dir/src/mmq2.cpp.o.d"
+  "/Users/matheussilva/dev/multithread-message-queue/src/naive.cpp" "CMakeFiles/MMQ.dir/src/naive.cpp.o" "gcc" "CMakeFiles/MMQ.dir/src/naive.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

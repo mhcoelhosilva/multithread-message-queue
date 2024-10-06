@@ -3,6 +3,7 @@
 
 #include "mmq.hpp"
 #include "mmq2.hpp"
+#include "naive.hpp"
 
 #include <iostream>
 #include <chrono>
@@ -15,8 +16,7 @@ using namespace std;
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
-int main()
-{
+void prepareDataDirs() {
     try{
         string dir_path = "../../data/dumps";
         fs::create_directory(dir_path);
@@ -26,7 +26,10 @@ int main()
     } catch(const std::exception& e) {
         cerr << e.what() << '\n';
     }
+}
 
+int main()
+{
     vector<shared_ptr<Message>> messages;
     for (int i = 0; i < 500; ++i) {
         messages.push_back(make_shared<Message>());
@@ -39,6 +42,7 @@ int main()
     json j;
 
     // Benchmark case (single thread!)
+    prepareDataDirs();
     j["single_thread_results"] = json::array();
     {
         chrono::steady_clock::time_point begin = chrono::steady_clock::now();
@@ -64,6 +68,7 @@ int main()
     }
 
     // Testing MMQ
+    prepareDataDirs();
     j["mmq_results"] = json::array();
     for (int numThreads = 1; numThreads <= 16; ++numThreads) {
         chrono::steady_clock::time_point begin = chrono::steady_clock::now();
@@ -87,6 +92,7 @@ int main()
     }
 
     // Testing MMQ 2 with lockless queue
+    prepareDataDirs();
     j["mmq_2_results"] = json::array();
     for (int numThreads = 1; numThreads <= 16; ++numThreads) {
         chrono::steady_clock::time_point begin = chrono::steady_clock::now();
@@ -107,6 +113,29 @@ int main()
         jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
 
         j["mmq_2_results"].push_back(jj);
+    }
+
+    // Testing Naive multi-threaded approach
+    prepareDataDirs();
+    j["naive_results"] = json::array();
+    {
+        chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+        NaiveMultithreadMessageQueue mmq;
+        for (int i = 0; i < messages.size(); ++i) {
+            mmq.AddMessageAsync(messages[i]);
+        }
+        mmq.Shutdown();
+
+        chrono::steady_clock::time_point end = chrono::steady_clock::now();
+        chrono::duration<float> duration = end - begin;
+
+        for (int numThreads = 1; numThreads <= 16; ++numThreads) {
+            json jj;
+            jj["num_threads"] = numThreads;
+            jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
+            j["naive_results"].push_back(jj);
+        }
     }
 
     ofstream o("../../data/results.json", ios::trunc);
