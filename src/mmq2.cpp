@@ -1,6 +1,5 @@
 #include "mmq2.hpp"
 
-
 #include <iostream>
 #include <fstream>
 
@@ -45,7 +44,6 @@ void MultithreadMessageQueue2::WorkerFunction(uint64_t index, MultithreadMessage
             }
             file << endl;
             file.close();
-
         }
         if (p->m_stop) {
             return;

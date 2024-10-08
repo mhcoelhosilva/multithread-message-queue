@@ -1,0 +1,3 @@
+/Users/matheussilva/dev/multithread-message-queue/build/debug/CMakeFiles/MMQ.dir
+/Users/matheussilva/dev/multithread-message-queue/build/debug/CMakeFiles/edit_cache.dir
+/Users/matheussilva/dev/multithread-message-queue/build/debug/CMakeFiles/rebuild_cache.dir

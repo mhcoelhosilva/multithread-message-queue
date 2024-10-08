@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "lldb",
+            "request": "launch",
+            "target": "./build/debug/MMQ",
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": "build",
+            "program": "./build/debug/MMQ"
+        }
+    ]
+}

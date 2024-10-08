@@ -1,63 +1,76 @@
-#include <atomic>
 #include <memory>
-#include <iostream>
 
-using namespace std;
+template <class T>
+struct AtomicNode {
+    std::atomic<AtomicNode*> next = nullptr;
+    [[no_unique_address]] std::shared_ptr<T> payload;
+};
 
-template<typename T>
-class LockFreeQueue
-{
-private:
+/**
+ * Queue allowing atomic pushing and popping of atomic nodes
+ *
+ * @tparam T
+ */
+template <class T>
+class LockFreeQueue {
+    std::atomic<AtomicNode<T>*> head = nullptr;
+    std::atomic<std::atomic<AtomicNode<T>*>*> tail = &head;
+    using HeadType = AtomicNode<T>*;
+    using TailType = std::atomic<HeadType>*;
 
-    struct Node
-    {
-        std::shared_ptr<T> m_data;
-        std::atomic<Node*> m_next;
+   public:
+    using Node = AtomicNode<T>;
 
-        Node(const T& data_) :
-            m_data(std::make_shared<T>(data_))
-        {};
-
-        Node(std::shared_ptr<T> data_) :
-            m_data(data_)
-        {};
-    };
-
-    std::atomic<Node*> m_head;
-    std::atomic<Node*> m_tail;
-
-public:
-    void push(std::shared_ptr<T> data) {
-        std::atomic<Node*> const newNode = new Node(data);
-        Node* oldHead = m_head.load();
-        Node* oldTail = m_tail.load();
-        if (!oldTail || !oldHead) {
-            Node* tmp = nullptr;
-            while(!m_tail.compare_exchange_weak(tmp, newNode)){
-                oldTail = m_tail.load();
-            }
-            while(!m_head.compare_exchange_weak(tmp, newNode)){
-                oldHead = m_head.load();
-            }
-        } else {
-            Node* tmp = nullptr;
-            while(!oldTail->m_next.compare_exchange_weak(tmp, newNode)){
-                oldTail = m_tail.load();
-            }
-            m_tail.compare_exchange_weak(oldTail, newNode);
+    LockFreeQueue() = default;
+    LockFreeQueue(LockFreeQueue const&) = delete;
+    constexpr LockFreeQueue(LockFreeQueue&& other) noexcept
+      : head(HeadType(other.head))
+      , tail(TailType(other.tail)) {
+        if (tail == &other.head) {
+            tail = &head;
         }
+        other.head = nullptr;
+        other.tail = &other.head;
     }
 
-    std::shared_ptr<T> pop() {
-        Node* oldHead = m_head.load();
-        while(oldHead && !m_head.compare_exchange_weak(oldHead, oldHead->m_next)){
-            oldHead = m_head.load();
-        }
-        return oldHead ? oldHead->m_data : std::shared_ptr<T>();
+    // Atomically push a node into the queue
+    void push(std::shared_ptr<T> data) {
+        Node* n = new Node();
+        n->payload = data;
+        std::atomic<Node*>* current = tail.exchange(&n->next);
+        current->store(n);
     }
 
     bool empty() {
-        Node* oldHead = m_head.load();
-        return oldHead == nullptr;
+        return head.load() == nullptr;
+    }
+
+    // Atomically pop a node from the queue. Returns nullptr if the queue is
+    // empty
+    std::shared_ptr<T> pop() {
+        // No point in trying to pop from an empty queue, fail fast
+        Node* currentHead = head.load();
+        if (currentHead == nullptr) {
+            return nullptr;
+        }
+
+        std::atomic<Node*>* nextHeadPtr = nullptr;
+
+        do {
+             // Another thread might have just popped something off the queue
+            currentHead = head.load();
+            if (currentHead == nullptr) {
+                return nullptr;
+            }
+            nextHeadPtr = &currentHead->next;
+        } while (!head.compare_exchange_weak(currentHead, *nextHeadPtr));
+
+        // If the tail is currently pointing to nextHeadPtr, reset the
+        // tail to point to &head
+        tail.compare_exchange_strong(nextHeadPtr, &head);
+
+        std::shared_ptr<T> payload = currentHead->payload;
+        delete currentHead;
+        return payload;
     }
 };
