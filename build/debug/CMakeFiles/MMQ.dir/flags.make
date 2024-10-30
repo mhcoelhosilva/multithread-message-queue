@@ -6,7 +6,7 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/matheussilva/dev/multithread-message-queue/include -isystem /opt/homebrew/include
 
-CXX_FLAGSx86_64 = -g -std=gnu++17 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk
+CXX_FLAGSx86_64 = -g -std=gnu++20 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk
 
-CXX_FLAGS = -g -std=gnu++17 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk
+CXX_FLAGS = -g -std=gnu++20 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk
 

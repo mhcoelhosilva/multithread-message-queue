@@ -10,7 +10,7 @@ void MultithreadMessageQueue2::Start(int numThreads) {
     }
 }
 
-void MultithreadMessageQueue2::AddMessageAsync(shared_ptr<Message> message) {
+void MultithreadMessageQueue2::AddMessage(shared_ptr<Message> message) {
     if (!message) {
         cerr << "Invalid message" << endl;
         return;
@@ -28,10 +28,14 @@ void MultithreadMessageQueue2::Shutdown() {
     for (int i = 0; i < m_threads.size(); ++i) {
         m_threads[i].join();
     }
+    m_threads.clear();
 }
 
 void MultithreadMessageQueue2::WorkerFunction(uint64_t index, MultithreadMessageQueue2* p) {
     while (true) {
+        if (p->m_stop) {
+            return;
+        }
         if (!p->m_queue.empty()) {
             shared_ptr<Message> message = p->m_queue.pop();
             if (!message) {
@@ -44,9 +48,8 @@ void MultithreadMessageQueue2::WorkerFunction(uint64_t index, MultithreadMessage
             }
             file << endl;
             file.close();
-        }
-        if (p->m_stop) {
-            return;
+        } else {
+            this_thread::yield();
         }
     }
 }

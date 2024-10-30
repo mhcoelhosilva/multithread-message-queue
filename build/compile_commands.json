@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/Users/matheussilva/dev/multithread-message-queue/build",
+  "command": "/usr/bin/clang++  -I/Users/matheussilva/dev/multithread-message-queue/include -isystem /opt/homebrew/include -g -std=gnu++20 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -o CMakeFiles/MMQ.dir/src/main.cpp.o -c /Users/matheussilva/dev/multithread-message-queue/src/main.cpp",
+  "file": "/Users/matheussilva/dev/multithread-message-queue/src/main.cpp",
+  "output": "CMakeFiles/MMQ.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/matheussilva/dev/multithread-message-queue/build",
+  "command": "/usr/bin/clang++  -I/Users/matheussilva/dev/multithread-message-queue/include -isystem /opt/homebrew/include -g -std=gnu++20 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -o CMakeFiles/MMQ.dir/src/mmq.cpp.o -c /Users/matheussilva/dev/multithread-message-queue/src/mmq.cpp",
+  "file": "/Users/matheussilva/dev/multithread-message-queue/src/mmq.cpp",
+  "output": "CMakeFiles/MMQ.dir/src/mmq.cpp.o"
+},
+{
+  "directory": "/Users/matheussilva/dev/multithread-message-queue/build",
+  "command": "/usr/bin/clang++  -I/Users/matheussilva/dev/multithread-message-queue/include -isystem /opt/homebrew/include -g -std=gnu++20 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -o CMakeFiles/MMQ.dir/src/mmq2.cpp.o -c /Users/matheussilva/dev/multithread-message-queue/src/mmq2.cpp",
+  "file": "/Users/matheussilva/dev/multithread-message-queue/src/mmq2.cpp",
+  "output": "CMakeFiles/MMQ.dir/src/mmq2.cpp.o"
+},
+{
+  "directory": "/Users/matheussilva/dev/multithread-message-queue/build",
+  "command": "/usr/bin/clang++  -I/Users/matheussilva/dev/multithread-message-queue/include -isystem /opt/homebrew/include -g -std=gnu++20 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -o CMakeFiles/MMQ.dir/src/naive.cpp.o -c /Users/matheussilva/dev/multithread-message-queue/src/naive.cpp",
+  "file": "/Users/matheussilva/dev/multithread-message-queue/src/naive.cpp",
+  "output": "CMakeFiles/MMQ.dir/src/naive.cpp.o"
+}
+]

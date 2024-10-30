@@ -1,265 +1,265 @@
 {
     "mmq_2_results": [
         {
-            "duration_ms": 441,
+            "duration_ms": 594,
             "num_threads": 1
         },
         {
-            "duration_ms": 0,
+            "duration_ms": 209,
             "num_threads": 2
         },
         {
-            "duration_ms": 0,
+            "duration_ms": 150,
             "num_threads": 3
         },
         {
-            "duration_ms": 162,
+            "duration_ms": 161,
             "num_threads": 4
         },
         {
-            "duration_ms": 0,
+            "duration_ms": 142,
             "num_threads": 5
         },
         {
-            "duration_ms": 0,
+            "duration_ms": 116,
             "num_threads": 6
         },
         {
-            "duration_ms": 135,
+            "duration_ms": 118,
             "num_threads": 7
         },
         {
-            "duration_ms": 1,
+            "duration_ms": 96,
             "num_threads": 8
         },
         {
-            "duration_ms": 0,
+            "duration_ms": 102,
             "num_threads": 9
         },
         {
-            "duration_ms": 1,
+            "duration_ms": 88,
             "num_threads": 10
         },
         {
-            "duration_ms": 1,
+            "duration_ms": 83,
             "num_threads": 11
         },
         {
-            "duration_ms": 0,
+            "duration_ms": 87,
             "num_threads": 12
         },
         {
-            "duration_ms": 0,
+            "duration_ms": 125,
             "num_threads": 13
         },
         {
-            "duration_ms": 1,
+            "duration_ms": 83,
             "num_threads": 14
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 92,
             "num_threads": 15
         },
         {
-            "duration_ms": 11,
+            "duration_ms": 91,
             "num_threads": 16
         }
     ],
     "mmq_results": [
         {
-            "duration_ms": 430,
+            "duration_ms": 406,
             "num_threads": 1
         },
         {
-            "duration_ms": 231,
+            "duration_ms": 223,
             "num_threads": 2
         },
         {
-            "duration_ms": 200,
+            "duration_ms": 249,
             "num_threads": 3
         },
         {
-            "duration_ms": 166,
+            "duration_ms": 167,
             "num_threads": 4
         },
         {
-            "duration_ms": 156,
+            "duration_ms": 201,
             "num_threads": 5
         },
         {
-            "duration_ms": 152,
+            "duration_ms": 131,
             "num_threads": 6
         },
         {
-            "duration_ms": 136,
+            "duration_ms": 114,
             "num_threads": 7
         },
         {
-            "duration_ms": 234,
+            "duration_ms": 137,
             "num_threads": 8
         },
         {
-            "duration_ms": 474,
+            "duration_ms": 130,
             "num_threads": 9
         },
         {
-            "duration_ms": 184,
+            "duration_ms": 163,
             "num_threads": 10
         },
         {
-            "duration_ms": 207,
+            "duration_ms": 196,
             "num_threads": 11
         },
         {
-            "duration_ms": 306,
+            "duration_ms": 279,
             "num_threads": 12
         },
         {
-            "duration_ms": 275,
+            "duration_ms": 237,
             "num_threads": 13
         },
         {
-            "duration_ms": 297,
+            "duration_ms": 327,
             "num_threads": 14
         },
         {
-            "duration_ms": 396,
+            "duration_ms": 295,
             "num_threads": 15
         },
         {
-            "duration_ms": 366,
+            "duration_ms": 282,
             "num_threads": 16
         }
     ],
     "naive_results": [
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 1
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 2
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 3
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 4
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 5
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 6
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 7
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 8
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 9
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 10
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 11
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 12
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 13
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 14
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 15
         },
         {
-            "duration_ms": 175,
+            "duration_ms": 109,
             "num_threads": 16
         }
     ],
     "single_thread_results": [
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 1
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 2
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 3
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 4
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 5
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 6
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 7
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 8
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 9
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 10
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 11
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 12
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 13
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 14
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 15
         },
         {
-            "duration_ms": 426,
+            "duration_ms": 397,
             "num_threads": 16
         }
     ]

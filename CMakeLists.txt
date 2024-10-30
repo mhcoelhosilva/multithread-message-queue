@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 option(BUILD_SHARED_LIBS "Build libraries as DLLs" FALSE)
@@ -19,7 +19,7 @@ set(CMAKE_OSX_ARCHITECTURES "x86_64")
 
 project(MMQ)
 
-set(SOURCES src/main.cpp src/mmq.cpp include/mmq.hpp src/mmq2.cpp include/mmq2.hpp include/lock_free_queue.hpp src/naive.cpp include/naive.hpp)
+set(SOURCES src/main.cpp src/mmq.cpp include/basemmq.hpp include/mmq.hpp src/mmq2.cpp include/mmq2.hpp include/lock_free_queue.hpp src/naive.cpp include/naive.hpp)
 add_executable(MMQ ${SOURCES})
 
 target_include_directories(MMQ PUBLIC

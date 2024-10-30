@@ -49,6 +49,8 @@ void MultithreadMessageQueue::Shutdown() {
     for (int i = 0; i < m_threads.size(); ++i) {
         m_threads[i].join();
     }
+    m_threads.clear();
+    m_messages.clear();
 }
 
 void MultithreadMessageQueue::WorkerFunction(uint64_t index, MultithreadMessageQueue* p) {

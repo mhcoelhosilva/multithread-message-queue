@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-void NaiveMultithreadMessageQueue::AddMessageAsync(shared_ptr<Message> message) {
+void NaiveMultithreadMessageQueue::AddMessage(shared_ptr<Message> message) {
     if (!message) {
         cerr << "Invalid message" << endl;
         return;
@@ -16,6 +16,7 @@ void NaiveMultithreadMessageQueue::Shutdown() {
     for (int i = 0; i < m_threads.size(); ++i) {
         m_threads[i].join();
     }
+    m_threads.clear();
 }
 
 void NaiveMultithreadMessageQueue::WorkerFunction(shared_ptr<Message> message) {

@@ -6,10 +6,11 @@
 
 #include "message.hpp"
 #include "lock_free_queue.hpp"
+#include "basemmq.hpp"
 
 using namespace std;
 
-class MultithreadMessageQueue2 {
+class MultithreadMessageQueue2 : public BaseMultithreadMessageQueue {
 
     vector<thread> m_threads;
     LockFreeQueue<Message> m_queue;
@@ -17,10 +18,10 @@ class MultithreadMessageQueue2 {
 
 public:
 
-    void Start(int numThreads = 8);
-    void AddMessageAsync(shared_ptr<Message> message);
-    bool IsDoneProcessing();
-    void Shutdown();
+    virtual void Start(int numThreads = 8) override;
+    virtual void AddMessage(shared_ptr<Message> message) override;
+    virtual bool IsDoneProcessing() override;
+    virtual void Shutdown() override;
 
     static void WorkerFunction(uint64_t index, MultithreadMessageQueue2* p);
 

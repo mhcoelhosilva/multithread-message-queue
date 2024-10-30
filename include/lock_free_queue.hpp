@@ -1,9 +1,11 @@
 #include <memory>
 
+using namespace std;
+
 template <class T>
 struct AtomicNode {
-    std::atomic<AtomicNode*> next = nullptr;
-    [[no_unique_address]] std::shared_ptr<T> payload;
+    atomic<AtomicNode*> next = nullptr;
+    [[no_unique_address]] shared_ptr<T> payload;
 };
 
 /**
@@ -13,13 +15,14 @@ struct AtomicNode {
  */
 template <class T>
 class LockFreeQueue {
-    std::atomic<AtomicNode<T>*> head = nullptr;
-    std::atomic<std::atomic<AtomicNode<T>*>*> tail = &head;
-    using HeadType = AtomicNode<T>*;
-    using TailType = std::atomic<HeadType>*;
-
-   public:
     using Node = AtomicNode<T>;
+
+    atomic<Node*> head = nullptr;
+    atomic<atomic<Node*>*> tail = &head;
+    using HeadType = Node*;
+    using TailType = atomic<HeadType>*;
+
+public:
 
     LockFreeQueue() = default;
     LockFreeQueue(LockFreeQueue const&) = delete;
@@ -34,11 +37,14 @@ class LockFreeQueue {
     }
 
     // Atomically push a node into the queue
-    void push(std::shared_ptr<T> data) {
+    void push(shared_ptr<T> data) {
         Node* n = new Node();
         n->payload = data;
-        std::atomic<Node*>* current = tail.exchange(&n->next);
-        current->store(n);
+        if (head.load() == nullptr) {
+            head.store(n);
+        }
+        atomic<Node*>* current = tail.exchange(&n->next); // new tail is new node's next
+        current->store(n); // previous tail is new node. i.e., head->...->new_node(old tail, was empty)->new_node_next(empty, new tail)
     }
 
     bool empty() {
@@ -47,14 +53,14 @@ class LockFreeQueue {
 
     // Atomically pop a node from the queue. Returns nullptr if the queue is
     // empty
-    std::shared_ptr<T> pop() {
+    shared_ptr<T> pop() {
         // No point in trying to pop from an empty queue, fail fast
         Node* currentHead = head.load();
         if (currentHead == nullptr) {
             return nullptr;
         }
 
-        std::atomic<Node*>* nextHeadPtr = nullptr;
+        atomic<Node*>* nextHeadPtr = nullptr;
 
         do {
              // Another thread might have just popped something off the queue
@@ -69,7 +75,7 @@ class LockFreeQueue {
         // tail to point to &head
         tail.compare_exchange_strong(nextHeadPtr, &head);
 
-        std::shared_ptr<T> payload = currentHead->payload;
+        shared_ptr<T> payload = currentHead->payload;
         delete currentHead;
         return payload;
     }

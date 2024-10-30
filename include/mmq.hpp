@@ -6,10 +6,11 @@
 #include <chrono>
 
 #include "message.hpp"
+#include "basemmq.hpp"
 
 using namespace std;
 
-class MultithreadMessageQueue {
+class MultithreadMessageQueue : public BaseMultithreadMessageQueue {
 
     vector<thread> m_threads;
     atomic<uint64_t> m_threadBusy = 0;
@@ -18,10 +19,10 @@ class MultithreadMessageQueue {
 
 public:
 
-    void Start(int numThreads = 8);
-    void AddMessage(shared_ptr<Message> message);
-    bool IsDoneProcessing();
-    void Shutdown();
+    virtual void Start(int numThreads = 8) override;
+    virtual void AddMessage(shared_ptr<Message> message) override;
+    virtual bool IsDoneProcessing() override;
+    virtual void Shutdown() override;
 
     static void WorkerFunction(uint64_t index, MultithreadMessageQueue* p);
 

@@ -1,6 +1,7 @@
 // main.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include "basemmq.hpp"
 #include "mmq.hpp"
 #include "mmq2.hpp"
 #include "naive.hpp"
@@ -25,6 +26,54 @@ void prepareDataDirs() {
         }
     } catch(const std::exception& e) {
         cerr << e.what() << '\n';
+    }
+}
+
+void runExperiment(BaseMultithreadMessageQueue* mmq, json& j, const char* resultsString, const vector<shared_ptr<Message>>& messages, int maxThreads) {
+    prepareDataDirs();
+    j[resultsString] = json::array();
+
+    if (maxThreads > 1) {
+        for (int numThreads = 1; numThreads <= maxThreads; ++numThreads) {
+            chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+            mmq->Start(numThreads);
+            for (int i = 0; i < messages.size(); ++i) {
+                mmq->AddMessage(messages[i]);
+            }
+            while (!mmq->IsDoneProcessing()) {
+                this_thread::yield();
+            }
+            mmq->Shutdown();
+
+            chrono::steady_clock::time_point end = chrono::steady_clock::now();
+            chrono::duration<float> duration = end - begin;
+
+            json jj;
+            jj["num_threads"] = numThreads;
+            jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
+
+            j[resultsString].push_back(jj);
+        }
+    } else {
+        chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
+        mmq->Start(1);
+        for (int i = 0; i < messages.size(); ++i) {
+            mmq->AddMessage(messages[i]);
+        }
+        mmq->Shutdown();
+
+        chrono::steady_clock::time_point end = chrono::steady_clock::now();
+        chrono::duration<float> duration = end - begin;
+
+        for (int numThreads = 1; numThreads <= 16; ++numThreads) {
+            json jj;
+            jj["num_threads"] = numThreads;
+            jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
+            
+            j[resultsString].push_back(jj);
+        }
     }
 }
 
@@ -68,75 +117,16 @@ int main()
     }
 
     // Testing MMQ
-    prepareDataDirs();
-    j["mmq_results"] = json::array();
-    for (int numThreads = 1; numThreads <= 16; ++numThreads) {
-        chrono::steady_clock::time_point begin = chrono::steady_clock::now();
-
-        MultithreadMessageQueue mmq;
-        mmq.Start(numThreads);
-        for (int i = 0; i < messages.size(); ++i) {
-            mmq.AddMessage(messages[i]);
-        }
-        while (!mmq.IsDoneProcessing()) {}
-        mmq.Shutdown();
-
-        chrono::steady_clock::time_point end = chrono::steady_clock::now();
-        chrono::duration<float> duration = end - begin;
-
-        json jj;
-        jj["num_threads"] = numThreads;
-        jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
-
-        j["mmq_results"].push_back(jj);
-    }
+    MultithreadMessageQueue mmq;
+    runExperiment(&mmq, j, "mmq_results", messages, 16);
 
     // Testing MMQ 2 with lockless queue
-    prepareDataDirs();
-    j["mmq_2_results"] = json::array();
-    for (int numThreads = 1; numThreads <= 16; ++numThreads) {
-        chrono::steady_clock::time_point begin = chrono::steady_clock::now();
-
-        MultithreadMessageQueue2 mmq;
-        mmq.Start(numThreads);
-        for (int i = 0; i < messages.size(); ++i) {
-            mmq.AddMessageAsync(messages[i]);
-        }
-        while (!mmq.IsDoneProcessing()) {}
-        mmq.Shutdown();
-
-        chrono::steady_clock::time_point end = chrono::steady_clock::now();
-        chrono::duration<float> duration = end - begin;
-
-        json jj;
-        jj["num_threads"] = numThreads;
-        jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
-
-        j["mmq_2_results"].push_back(jj);
-    }
+    MultithreadMessageQueue2 mmq2;
+    runExperiment(&mmq2, j, "mmq_2_results", messages, 16);
 
     // Testing Naive multi-threaded approach
-    prepareDataDirs();
-    j["naive_results"] = json::array();
-    {
-        chrono::steady_clock::time_point begin = chrono::steady_clock::now();
-
-        NaiveMultithreadMessageQueue mmq;
-        for (int i = 0; i < messages.size(); ++i) {
-            mmq.AddMessageAsync(messages[i]);
-        }
-        mmq.Shutdown();
-
-        chrono::steady_clock::time_point end = chrono::steady_clock::now();
-        chrono::duration<float> duration = end - begin;
-
-        for (int numThreads = 1; numThreads <= 16; ++numThreads) {
-            json jj;
-            jj["num_threads"] = numThreads;
-            jj["duration_ms"] = chrono::duration_cast<chrono::milliseconds>(duration).count();
-            j["naive_results"].push_back(jj);
-        }
-    }
+    NaiveMultithreadMessageQueue naiveMmq;
+    runExperiment(&naiveMmq, j, "naive_results", messages, 1);
 
     ofstream o("../../data/results.json", ios::trunc);
     o << j.dump(4) << endl;
